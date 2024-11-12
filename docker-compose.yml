@@ -1,0 +1,42 @@
+version: '2.*'
+
+services:
+
+  laudosv1:
+    build: .
+    image: laudosv1
+    container_name: laudosv1
+    restart: always
+    environment:
+      APP_KEY: 'base64:7vxyIbtMM2QAoRcbOJddnVTIpQdXC7rpI7s6IP3xPIQ='
+      APP_DEBUG: 'false'
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: db_laudos_hsj
+      DB_USERNAME: root
+      DB_PASSWORD: root@adm@2328
+    volumes:
+      - ./laudosv1/public:/app/public
+    ports:
+      - 8010:8080
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    container_name: mysqls_laudosv1
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root@adm@2328
+      MYSQL_DATABASE: db_laudos_hsj
+    ports:
+      - 3310:3306
+    volumes:
+      - mysqls_laudosv1:/var/lib/mysql
+
+networks:
+  default:
+
+
+volumes:
+  mysqls_laudosv1:
